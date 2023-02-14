@@ -18,7 +18,8 @@ const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
+  // console.log(cartItems);
 
   const login = async () => {
     if (!user) {
@@ -44,10 +45,17 @@ const Header = () => {
     });
   };
 
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
+    });
+  };
+
   return (
     <header className="fixed bg-primary z-50 w-screen p-3 px-4 ms:p-6 md:px-16">
       {/*"destop"*/}
-      <div className="hidden md:flex h-full w-full items-center justify-between">
+      <div className="hidden md:flex  w-full items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <img src={Logo} className="w-10 object-cover" alt="logo" />
           <p className="text-headingColor text-xl font-bold">STUFFED</p>
@@ -67,11 +75,18 @@ const Header = () => {
               Service
             </li>
           </ul>
-          <div className="relative flex items-center justify-center">
-            <IoMdBasket className="text-textColor text-2xl cursor-pointer" />
-            <div className="absolute -top-3 -right-3 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-              <p className="text-xm text-white font-semibold">2</p>
-            </div>
+          <div  onClick={showCart} className="relative flex items-center justify-center">
+            <IoMdBasket
+              className="text-textColor text-2xl cursor-pointer"
+             
+            />
+            {cartItems && cartItems.length > 0 && (
+              <div className="absolute -top-3 -right-3 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+                <p className="text-xm text-white font-semibold">
+                  {cartItems.length}
+                </p>
+              </div>
+            )}
           </div>
           <div className="relative">
             <motion.img
@@ -112,10 +127,18 @@ const Header = () => {
       {/*"mobile*/}
       <div className="flex items-center justify-between md:hidden h-full w-full">
         <div className="relative flex items-center justify-center">
-          <IoMdBasket className="text-textColor text-2xl cursor-pointer" />
-          <div className="absolute -top-3 -right-3 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-            <p className="text-xm text-white font-semibold">2</p>
-          </div>
+          <IoMdBasket
+            onClick={showCart}
+            className="text-textColor text-2xl cursor-pointer"
+          />
+
+          {cartItems && cartItems.length > 0 && (
+            <div className="absolute -top-3 -right-3 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+              <p className="text-xm text-white font-semibold">
+                {cartItems.length}
+              </p>
+            </div>
+          )}
         </div>
         <Link to="/" className="flex items-center gap-2">
           <img src={Logo} className="w-10 object-cover" alt="logo" />

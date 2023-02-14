@@ -7,7 +7,7 @@ export default function HomeContainer() {
 
   return (
     <section
-      className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full h-full overflow-x-hidden"
+      className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full h-full overflow-hidden"
       id="home"
     >
       <div className="py-2 gap-6 flex-1 flex flex-col items-start justify-start md:items-start">
@@ -38,7 +38,7 @@ export default function HomeContainer() {
           Order Now
         </button>
       </div>
-      <div className="py-2 flex-1 flex items-center relative">
+      <div className="py-2 flex-1 flex items-start relative overflow-auto scrollbar-thin">
         <img
           src={HeroBg}
           alt="bg"
